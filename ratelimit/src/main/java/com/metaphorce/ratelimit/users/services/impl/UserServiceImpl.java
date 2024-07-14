@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		else {
-			user.setRole( UserRoleEnum.REGULAR );
+			throw new WrongDataException();
 		}
 		
 		user.setAge( requestDto.getAge() );
