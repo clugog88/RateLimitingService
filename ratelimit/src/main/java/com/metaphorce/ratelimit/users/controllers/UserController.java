@@ -7,13 +7,18 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.metaphorce.ratelimit.model.pojos.User;
+import com.metaphorce.ratelimit.persistence.entities.User;
+import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
+import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
 import com.metaphorce.ratelimit.users.services.UserService;
 
 /** 
@@ -30,7 +35,6 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<User>> list() {
 		log.info("Lanzando la busqueda de la informacion.");
 		try {
@@ -46,7 +50,6 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<User> getById(@PathVariable("id") Long id) {
 		log.info("Lanzando la busqueda de la informacion.");
 		try {
@@ -57,6 +60,50 @@ public class UserController {
 		}
 		catch (Exception e) {
 			log.error("Error buscando la informacion. ", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping
+	public ResponseEntity<User> add(@RequestBody RequestUserAdd requestDto){
+		log.info("Lanzando el guardado de la informacion.");
+		try {
+			final User user = userService.add( requestDto );
+			return new ResponseEntity<>(
+					user, 
+					HttpStatus.CREATED);
+		}
+		catch (Exception e) {
+			log.error("Error guardando la informacion. ", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody RequestUserUpdate requestDto){
+		log.info("Lanzando la actualizacion de la informacion.");
+		try {
+			final User user = userService.update( id, requestDto );
+			return new ResponseEntity<>(
+					user, 
+					HttpStatus.OK);
+		}
+		catch (Exception e) {
+			log.error("Error actualizando la informacion. ", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+		log.info("Lanzando la eliminacion de la informacion.");
+		try {
+			userService.delete( id );
+			return new ResponseEntity<>(
+					HttpStatus.OK);
+		}
+		catch (Exception e) {
+			log.error("Error eliminando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

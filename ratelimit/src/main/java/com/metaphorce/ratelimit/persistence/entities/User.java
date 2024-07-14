@@ -1,4 +1,6 @@
-package com.metaphorce.ratelimit.model.pojos;
+package com.metaphorce.ratelimit.persistence.entities;
+
+import com.metaphorce.ratelimit.persistence.entities.enums.UserRoleEnum;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,5 +23,6 @@ public class User {
     private String email;
     private String phone;
     private Integer age;
+    private UserRoleEnum role;
 
 }
