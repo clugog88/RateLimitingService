@@ -1,11 +1,12 @@
-package com.metaphorce.ratelimit.config;
+package com.metaphorce.ratelimit.error.controller;
 
-import com.metaphorce.ratelimit.exceptions.TooManyRequestsException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.metaphorce.ratelimit.error.exceptions.TooManyRequestsException;
 
 import java.util.HashMap;
 import java.util.Map;

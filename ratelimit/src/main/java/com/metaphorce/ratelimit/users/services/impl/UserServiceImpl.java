@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.metaphorce.ratelimit.exceptions.UserNotFoundException;
-import com.metaphorce.ratelimit.exceptions.WrongDataException;
+import com.metaphorce.ratelimit.error.exceptions.UserNotFoundException;
+import com.metaphorce.ratelimit.error.exceptions.WrongDataException;
 import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.persistence.entities.enums.UserRoleEnum;
 import com.metaphorce.ratelimit.persistence.repositories.UserRepository;

@@ -1,4 +1,4 @@
-package com.metaphorce.ratelimit.config;
+package com.metaphorce.ratelimit.configuration;
 
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
