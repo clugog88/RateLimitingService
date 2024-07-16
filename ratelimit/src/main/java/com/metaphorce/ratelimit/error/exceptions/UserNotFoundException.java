@@ -1,14 +1,10 @@
 package com.metaphorce.ratelimit.error.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 /** 
  * 
  * @Author Ing. Christhian Lugo Govea.
  */
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UserNotFoundException extends RuntimeException {
+public class UserNotFoundException extends AppException {
 	
 	private static final long serialVersionUID = 1L;
 

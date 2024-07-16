@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.metaphorce.ratelimit.error.controller.GlobalExceptionUtil;
 import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
 import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
@@ -44,6 +45,7 @@ public class UserController {
 					HttpStatus.OK);
 		}
 		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error buscando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -59,6 +61,7 @@ public class UserController {
 					HttpStatus.OK);
 		}
 		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error buscando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -74,6 +77,7 @@ public class UserController {
 					HttpStatus.CREATED);
 		}
 		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error guardando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -89,6 +93,7 @@ public class UserController {
 					HttpStatus.OK);
 		}
 		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error actualizando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -103,6 +108,7 @@ public class UserController {
 					HttpStatus.OK);
 		}
 		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error eliminando la informacion. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
