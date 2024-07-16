@@ -15,10 +15,13 @@ import lombok.Data;
 @PropertySource("classpath:rate-limit.properties")
 public class RateLimitProperties {
 
-	@Value("${app.rate.limit:#{200}}")
-    private int rateLimit;
+	@Value("${request.rate.limit.regular:#{5}}")
+    private int rateLimitForRegularRole;
+	
+	@Value("${request.rate.limit.premium:#{10}}")
+    private int rateLimitForPremiumRole;
 
-    @Value("${app.rate.durationinms:#{60000}}")
+    @Value("${request.rate.duration:#{60000}}")
     private long rateDuration;
 
 }
