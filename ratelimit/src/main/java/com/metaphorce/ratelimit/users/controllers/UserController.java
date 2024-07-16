@@ -1,6 +1,8 @@
 package com.metaphorce.ratelimit.users.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.metaphorce.ratelimit.error.controller.GlobalExceptionUtil;
 import com.metaphorce.ratelimit.persistence.entities.User;
+import com.metaphorce.ratelimit.security.interfaces.WithRateLimitProtection;
 import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
 import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
 import com.metaphorce.ratelimit.users.services.UserService;
@@ -110,6 +113,24 @@ public class UserController {
 		catch (Exception e) {
 			GlobalExceptionUtil.handleException(log, e);
 			log.error("Error eliminando la informacion. ", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@WithRateLimitProtection
+	@GetMapping(value = "/{id}/execute-task")
+	public ResponseEntity<Map<String, String>> executeTask(@PathVariable("id") Long id) {
+		log.info("Lanzando la ejecucion del metodo.");
+		try {
+			final Map<String, String> message = new HashMap<>();
+			message.put( "message", "Executed");
+			return new ResponseEntity<>(
+					message, 
+					HttpStatus.OK);
+		}
+		catch (Exception e) {
+			GlobalExceptionUtil.handleException(log, e);
+			log.error("Error ejecutando el metodo. ", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

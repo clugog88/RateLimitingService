@@ -8,7 +8,7 @@ public class TooManyRequestsException extends AppException {
 	
 	private static final long serialVersionUID = 1L;
 
-	public TooManyRequestsException(String message){
+	public TooManyRequestsException(){
         super("Too many requests.");
     }
 
