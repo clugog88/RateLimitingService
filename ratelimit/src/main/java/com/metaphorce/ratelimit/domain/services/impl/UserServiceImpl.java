@@ -1,4 +1,4 @@
-package com.metaphorce.ratelimit.users.services.impl;
+package com.metaphorce.ratelimit.domain.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserAdd;
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserUpdate;
+import com.metaphorce.ratelimit.domain.services.UserService;
 import com.metaphorce.ratelimit.error.exceptions.UserNotFoundException;
 import com.metaphorce.ratelimit.error.exceptions.WrongDataException;
 import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.persistence.entities.enums.UserRoleEnum;
 import com.metaphorce.ratelimit.persistence.repositories.UserRepository;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
-import com.metaphorce.ratelimit.users.services.UserService;
 
 /** 
  * 

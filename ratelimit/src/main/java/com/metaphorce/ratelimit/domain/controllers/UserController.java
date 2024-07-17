@@ -1,4 +1,4 @@
-package com.metaphorce.ratelimit.users.controllers;
+package com.metaphorce.ratelimit.domain.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserAdd;
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserUpdate;
+import com.metaphorce.ratelimit.domain.services.UserService;
 import com.metaphorce.ratelimit.error.controller.GlobalExceptionUtil;
 import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.security.interfaces.WithRateLimitProtection;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
-import com.metaphorce.ratelimit.users.services.UserService;
 
 /** 
  * 

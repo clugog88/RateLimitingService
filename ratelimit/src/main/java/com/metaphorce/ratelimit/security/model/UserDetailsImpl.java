@@ -1,4 +1,4 @@
-package com.metaphorce.ratelimit.security.dto;
+package com.metaphorce.ratelimit.security.model;
 
 import java.util.Collection;
 import java.util.Collections;

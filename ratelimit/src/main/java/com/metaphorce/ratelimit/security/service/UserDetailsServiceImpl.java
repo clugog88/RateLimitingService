@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.metaphorce.ratelimit.error.exceptions.UserNotFoundException;
 import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.persistence.repositories.UserRepository;
-import com.metaphorce.ratelimit.security.dto.UserDetailsImpl;
+import com.metaphorce.ratelimit.security.model.UserDetailsImpl;
 
 /** 
  * 

@@ -1,4 +1,4 @@
-package com.metaphorce.ratelimit.users.controllers.model;
+package com.metaphorce.ratelimit.domain.controllers.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestUserAdd {
+public class RequestUserUpdate {
 	
 	private String name;
     private String lastname;

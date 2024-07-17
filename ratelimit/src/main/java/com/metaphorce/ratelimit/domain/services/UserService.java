@@ -1,10 +1,10 @@
-package com.metaphorce.ratelimit.users.services;
+package com.metaphorce.ratelimit.domain.services;
 
 import java.util.List;
 
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserAdd;
+import com.metaphorce.ratelimit.domain.controllers.model.RequestUserUpdate;
 import com.metaphorce.ratelimit.persistence.entities.User;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserAdd;
-import com.metaphorce.ratelimit.users.controllers.model.RequestUserUpdate;
 
 /** 
  * 
