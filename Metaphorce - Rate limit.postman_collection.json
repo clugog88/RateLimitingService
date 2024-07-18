@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "3b8a4a11-c0e1-40ea-a5fb-f8afe6bd85d3",
+		"name": "Metaphorce - Rate limit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34582816"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "1 - Get users list",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "christhian.lugo@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.102:8081/users",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 - Get user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.102:8081/users/1",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3 - Create user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Lupita\", \r\n    \"lastname\" : \"Castillo\", \r\n    \"email\" : \"lupita.castillo@gmail.com\", \r\n    \"phone\" : \"428-100-4321\", \r\n    \"age\" : \"33\", \r\n\t\"role\" : \"REGULAR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.102:8081/users",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4 - Update user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Lupita2\", \r\n    \"lastname\" : \"Castillo2\", \r\n    \"email\" : \"lupita.castillo@gmail.com2\", \r\n    \"phone\" : \"428-100-43212\", \r\n    \"age\" : \"332\", \r\n\t\"role\" : \"REGULAR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.102:8081/users/4",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5 - Delete user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.102:8081/users/3",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6 - Execute task",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "christhian.lugo@gmail.com",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.100.102:8081/users/1/execute-task",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"users",
+								"1",
+								"execute-task"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "7 - Rate limit information",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\" : \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.100.102:8081/admin/rate-limit-information",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"100",
+								"102"
+							],
+							"port": "8081",
+							"path": [
+								"admin",
+								"rate-limit-information"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
