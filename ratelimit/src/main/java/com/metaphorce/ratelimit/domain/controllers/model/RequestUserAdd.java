@@ -1,5 +1,6 @@
 package com.metaphorce.ratelimit.domain.controllers.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RequestUserAdd {
 	
+	@NotBlank(message = "Name is mandatory")
 	private String name;
+	
+	@NotBlank(message = "Lastname is mandatory")
     private String lastname;
-    private String email;
+    
+	@NotBlank(message = "Email is mandatory")
+	private String email;
+	
+	@NotBlank(message = "Phone is mandatory")
     private String phone;
+	
+	@NotBlank(message = "Age is mandatory")
     private Integer age;
+	
+	@NotBlank(message = "Role is mandatory")
 	private String role;
 	
 }

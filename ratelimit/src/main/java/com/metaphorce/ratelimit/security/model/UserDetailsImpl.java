@@ -11,11 +11,13 @@ import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.persistence.entities.enums.UserRoleEnum;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /** 
  * 
  * @Author Ing. Christhian Lugo Govea.
  */
+@Data
 @AllArgsConstructor
 @SuppressWarnings("serial")
 public class UserDetailsImpl implements UserDetails {

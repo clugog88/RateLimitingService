@@ -16,7 +16,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.metaphorce.ratelimit.configuration.properties.RateLimitProperties;
 import com.metaphorce.ratelimit.error.exceptions.TooManyRequestsException;
+import com.metaphorce.ratelimit.persistence.entities.User;
 import com.metaphorce.ratelimit.persistence.entities.enums.UserRoleEnum;
+import com.metaphorce.ratelimit.security.model.UserDetailsImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -28,7 +30,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class RateLimitAspect {
 
-    private final ConcurrentHashMap<String, List<Long>> requestCounts = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, List<Long>> requestCounts = new ConcurrentHashMap<>();
 
     @Autowired
 	private RateLimitProperties rateLimitProperties;
@@ -39,9 +41,9 @@ public class RateLimitAspect {
         		(ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest httpRequest = requestAttributes.getRequest();
         
-        final UsernamePasswordAuthenticationToken principal = 
+        final UsernamePasswordAuthenticationToken authToken = 
         		(UsernamePasswordAuthenticationToken) httpRequest.getUserPrincipal();
-        final Collection<GrantedAuthority> rolesList = principal.getAuthorities();
+        final Collection<GrantedAuthority> rolesList = authToken.getAuthorities();
         
         boolean hasPremium = false;
         boolean hasRegular = false;
@@ -50,7 +52,11 @@ public class RateLimitAspect {
         	hasRegular = rolesList.contains( UserRoleEnum.REGULAR );
         }
         
-        final String key = httpRequest.getRemoteAddr();
+        final UserDetailsImpl principal = (UserDetailsImpl) authToken.getPrincipal();
+        final User user = principal.getUser();
+        final Long key = user.getId();
+        
+//        final String key = httpRequest.getRemoteAddr();
         requestCounts.putIfAbsent(key, new ArrayList<>());
         
         final long currentTime = System.currentTimeMillis();
@@ -93,6 +99,19 @@ public class RateLimitAspect {
      */
     private boolean timeIsTooOld(final long currentTime, final long timeToCheck) {
         return (currentTime - timeToCheck) > rateLimitProperties.getRateDuration();
+    }
+    
+    /**
+     * Get request number by user Id.
+     * @param userId User id.
+     * @return Request number.
+     */
+    public int getRequestNumberByUserId(Long userId) {
+    	List<Long> timesList = requestCounts.get(userId);
+    	if(timesList!=null && !timesList.isEmpty()) {
+    		return timesList.size();
+    	}
+    	return 0;
     }
     
 }

@@ -27,6 +27,7 @@ public class SecurityConfiguration {
     	http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests( auth -> auth
             		.requestMatchers("/users/**").authenticated()
+            		.requestMatchers("/admin/**").permitAll()
             		.anyRequest().denyAll()
             )
             .sessionManagement( session -> session
