@@ -31,6 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class RateLimitAspect {
 
     private final ConcurrentHashMap<Long, List<Long>> requestCounts = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Integer> requestErrorCounts = new ConcurrentHashMap<>();
 
     @Autowired
 	private RateLimitProperties rateLimitProperties;
@@ -54,24 +55,32 @@ public class RateLimitAspect {
         
         final UserDetailsImpl principal = (UserDetailsImpl) authToken.getPrincipal();
         final User user = principal.getUser();
-        final Long key = user.getId();
+        final Long userId = user.getId();
+        final String username = user.getEmail();
         
 //        final String key = httpRequest.getRemoteAddr();
-        requestCounts.putIfAbsent(key, new ArrayList<>());
+        requestCounts.putIfAbsent(userId, new ArrayList<>());
+        requestErrorCounts.putIfAbsent(username, 0);
         
         final long currentTime = System.currentTimeMillis();
-        requestCounts.get(key).add(currentTime);
+        requestCounts.get(userId).add(currentTime);
         
         requestCountCleanup(currentTime);
         
         if(hasPremium || hasRegular) {
-        	int requestNum = requestCounts.get(key).size();
+        	int requestNum = requestCounts.get(userId).size();
         	if(hasPremium) {
             	if (requestNum > rateLimitProperties.getRateLimitForPremiumRole() ) {
+            		Integer errorsNum = requestErrorCounts.get( username );
+            		requestErrorCounts.put(username, errorsNum.intValue() + 1 );
+            		
                     throw new TooManyRequestsException();
                 }
             }
             else if (requestNum > rateLimitProperties.getRateLimitForRegularRole() ) {
+            	Integer errorsNum = requestErrorCounts.get( username );
+        		requestErrorCounts.put(username, errorsNum.intValue() + 1 );
+        		
                 throw new TooManyRequestsException();
             }
         }
@@ -110,6 +119,19 @@ public class RateLimitAspect {
     	List<Long> timesList = requestCounts.get(userId);
     	if(timesList!=null && !timesList.isEmpty()) {
     		return timesList.size();
+    	}
+    	return 0;
+    }
+    
+    /**
+     * Get request error number by user Id.
+     * @param userId User id.
+     * @return Request error number.
+     */
+    public int getRequestErrorNumberByUsername(String username) {
+    	Integer errorsNum = requestErrorCounts.get( username );
+    	if(errorsNum!=null) {
+    		return errorsNum.intValue();
     	}
     	return 0;
     }

@@ -23,5 +23,8 @@ public class RateLimitProperties {
 
     @Value("${request.rate.duration:#{60000}}")
     private long rateDuration;
+    
+    @Value("${circuit.breaker.request.number:#{10}}")
+    private int circuitBreakerRequestNumber;
 
 }
